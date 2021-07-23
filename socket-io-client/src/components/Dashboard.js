@@ -14,7 +14,7 @@ const DashBoard = () => {
         socket.on('FromAPI', data =>{
             console.debug("data",data)
             // setTemperature(data)
-            setUserList(data)
+            setUserList([...data])
         });
 
     },[users])
@@ -22,6 +22,7 @@ const DashBoard = () => {
     return <div className="container">
         <h5>Socket Communication</h5>
         {/* <h6>Temperature: {temperature}</h6> */}
+        <h6>User list will be updated</h6>
         <h6>Users:{users.length}</h6>
         {users.length > 0 && <ul>
             {users.map((i)=>{

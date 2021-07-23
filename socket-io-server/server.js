@@ -11,7 +11,7 @@ app.use(index);
 const server = http.createServer(app);
 const io = require('socket.io')(server, {
 	cors: {
-		origin: "http://localhost:3000",
+		origin: "http://localhost:4001",
 		methods: ["GET", "POST"]
 	  }
 });
@@ -19,15 +19,15 @@ const io = require('socket.io')(server, {
 
 io.on('connection',socket=>{
 	 console.log('New Client Connected');
-
-	 var ids = setInterval(() => getData(socket), 50000);
 	 
+	 var ids = setInterval(() => getData(socket), 10000);
+
+	 socket.on('disconnect',()=>{
+		 clearInterval(ids);
+		  console.log('Client Disconnected')
+	 })
 });
 
-io.on('disconnect',()=>{
-	clearInterval(ids);
-	 console.log('Client Disconnected')
-})
 
 
 const getData = async socket => {
